@@ -12,12 +12,16 @@ namespace MVC5.Controllers
 {
     public class ClientsController : Controller
     {
-        private FabricsEntities db = new FabricsEntities();
+        //private FabricsEntities db = new FabricsEntities();
+
+        ClientRepository ClientRepo = RepositoryHelper.GetClientRepository(); //db.Client
+        OccupationRepository occuRepo = RepositoryHelper.GetOccupationRepository(); //db.Occ
 
         // GET: Clients
         public ActionResult Index()
         {
-            var client = db.Client.Include(c => c.Occupation);
+            //var client = db.Client.Include(c => c.Occupation).Take(10);
+            var client = ClientRepo.All();
             return View(client.ToList());
         }
 
@@ -28,7 +32,7 @@ namespace MVC5.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Client client = db.Client.Find(id);
+            Client client = ClientRepo.Find(id.Value);
             if (client == null)
             {
                 return HttpNotFound();
@@ -39,7 +43,7 @@ namespace MVC5.Controllers
         // GET: Clients/Create
         public ActionResult Create()
         {
-            ViewBag.OccupationId = new SelectList(db.Occupation, "OccupationId", "OccupationName");
+            ViewBag.OccupationId = new SelectList(occuRepo.All(), "OccupationId", "OccupationName");
             return View();
         }
 
@@ -52,12 +56,12 @@ namespace MVC5.Controllers
         {
             if (ModelState.IsValid)
             {
-                db.Client.Add(client);
-                db.SaveChanges();
+                ClientRepo.Add(client);
+                ClientRepo.UnitOfWork.Commit();
                 return RedirectToAction("Index");
             }
 
-            ViewBag.OccupationId = new SelectList(db.Occupation, "OccupationId", "OccupationName", client.OccupationId);
+            ViewBag.OccupationId = new SelectList(occuRepo.All(), "OccupationId", "OccupationName", client.OccupationId);
             return View(client);
         }
 
@@ -68,12 +72,12 @@ namespace MVC5.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Client client = db.Client.Find(id);
+            Client client = ClientRepo.Find(id.Value);
             if (client == null)
             {
                 return HttpNotFound();
             }
-            ViewBag.OccupationId = new SelectList(db.Occupation, "OccupationId", "OccupationName", client.OccupationId);
+            ViewBag.OccupationId = new SelectList(occuRepo.All(), "OccupationId", "OccupationName", client.OccupationId);
             return View(client);
         }
 
@@ -86,11 +90,11 @@ namespace MVC5.Controllers
         {
             if (ModelState.IsValid)
             {
-                db.Entry(client).State = EntityState.Modified;
-                db.SaveChanges();
+                ClientRepo.UnitOfWork.Context.Entry(client).State = EntityState.Modified;
+                ClientRepo.UnitOfWork.Commit();
                 return RedirectToAction("Index");
             }
-            ViewBag.OccupationId = new SelectList(db.Occupation, "OccupationId", "OccupationName", client.OccupationId);
+            ViewBag.OccupationId = new SelectList(occuRepo.All(), "OccupationId", "OccupationName", client.OccupationId);
             return View(client);
         }
 
@@ -101,7 +105,7 @@ namespace MVC5.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Client client = db.Client.Find(id);
+            Client client = ClientRepo.Find(id.Value);
             if (client == null)
             {
                 return HttpNotFound();
@@ -114,9 +118,28 @@ namespace MVC5.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            Client client = db.Client.Find(id);
-            db.Client.Remove(client);
-            db.SaveChanges();
+            Client client = ClientRepo.Find(id);
+
+            /*var order = client.Order;
+
+            foreach (var item in order)
+            {
+                 var OrderLine = item.OrderLine;
+                 
+                 db.OrderLine.RemoveRange(OrderLine);
+            }
+            db.Order.RemoveRange(order);*/
+
+            /*foreach (var ord in client.Order.ToList())
+            {
+                var ol = ord.OrderLine;
+                db.OrderLine.RemoveRange(ol);
+                //db.Order.Remove(ord);
+            }*/
+            ClientRepo.Delete(client);
+            ClientRepo.UnitOfWork.Commit();
+
+            ClientRepo.UnitOfWork.Commit();
             return RedirectToAction("Index");
         }
 
@@ -124,7 +147,8 @@ namespace MVC5.Controllers
         {
             if (disposing)
             {
-                db.Dispose();
+                // db.Dispose();
+                ClientRepo.UnitOfWork.Context.Dispose();
             }
             base.Dispose(disposing);
         }
