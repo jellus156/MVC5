@@ -217,13 +217,13 @@
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\BaseController..cs" />
     <Compile Include="Controllers\ClientsController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\Orders1Controller.cs" />
+    <Compile Include="Controllers\MB1Controller.cs" />
     <Compile Include="Controllers\ProductsController.cs" />
-    <Compile Include="Controllers\RedirectController.cs" />
-    <Compile Include="Controllers\ViewsController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -426,6 +426,9 @@
     <Content Include="Views\Products\Edit.cshtml" />
     <Content Include="Views\Products\Index.cshtml" />
     <Content Include="Views\Views\Index.cshtml" />
+    <Content Include="Views\MB1\Index.cshtml" />
+    <Content Include="Views\MB1\TempData1.cshtml" />
+    <Content Include="Views\MB1\TempData2.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Views\Redirect\" />
