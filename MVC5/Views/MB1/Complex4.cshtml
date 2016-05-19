@@ -1,0 +1,55 @@
+﻿@model IEnumerable<MVC5.Models.SimpleViewModel>
+
+@{
+    ViewBag.Title = "Complex4";
+}
+
+@{ 
+    var item = Model.ToArray();
+}
+<h2>Complex4</h2>
+
+@using (Html.BeginForm())
+{
+@Html.AntiForgeryToken()
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.UserName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Password)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ConfirmPassword)
+        </th>
+        <th>
+
+        </th>
+    </tr>
+
+    @for (int i = 0; i < item.Length; i++)
+    {
+        <tr>
+            <td>
+                @Html.EditorFor(model => item[i].UserName)
+            </td>
+            <td>
+                @Html.EditorFor(model => item[i].Password)
+            </td>
+            <td>
+                @Html.EditorFor(model => item[i].ConfirmPassword)
+            </td>
+            <th>
+                @Html.ValidationMessageFor(model => item[i].ConfirmPassword, "", new { @class = "text-danger" })
+            </th>
+        </tr>
+    }
+    
+    </table>
+    <div class="form-group">
+        <div class="col-md-offset-2 col-md-10">
+            <input type="submit" value="Create" class="btn btn-default" />
+        </div>
+    </div>
+}
