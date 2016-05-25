@@ -1,0 +1,25 @@
+﻿
+@{
+    ViewBag.Title = "Example1";
+}
+
+<h2>Example1</h2>
+
+<p>現在時刻 : @DateTime.Now</p>
+
+<p>啟用狀態 : @(ViewBag.IsEnbled != null && ViewBag.IsEnbled ? "啟用" : "停用")</p>
+
+@{ 
+    var name = "White";
+    var message = "你好!我是" + name;
+}
+
+@{ 
+    @:你好!我是@name
+    <br />
+    @:你好!我是 @name
+    <br />
+    @:你好!我是@(name)
+    <br />    
+}
+

@@ -210,6 +210,8 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ActionFilter\LoggerAttribute.cs" />
+    <Compile Include="ActionFilter\SharedDataAttribute.cs" />
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\IdentityConfig.cs" />
@@ -217,6 +219,7 @@
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\AFController.cs" />
     <Compile Include="Controllers\BaseController..cs" />
     <Compile Include="Controllers\ClientsController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
@@ -224,6 +227,7 @@
     <Compile Include="Controllers\Orders1Controller.cs" />
     <Compile Include="Controllers\MB1Controller.cs" />
     <Compile Include="Controllers\ProductsController.cs" />
+    <Compile Include="Controllers\ViewController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -434,6 +438,10 @@
     <Content Include="Views\MB1\Complex2ex.cshtml" />
     <Content Include="Views\MB1\Complex3.cshtml" />
     <Content Include="Views\MB1\Complex4.cshtml" />
+    <Content Include="Views\Shared\ErrorArgument.cshtml" />
+    <Content Include="Views\AF\MadeMeWrong.cshtml" />
+    <Content Include="Views\Shared\OutOfMemoryException.cshtml" />
+    <Content Include="Views\View\Example1.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

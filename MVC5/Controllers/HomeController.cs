@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using MVC5.ActionFilter;
 
 namespace MVC5.Controllers
 {
@@ -13,9 +14,10 @@ namespace MVC5.Controllers
             return View();
         }
 
+        [SharedData]
         public ActionResult About()
         {
-            ViewBag.Message = "Your application description page.";
+            //ViewBag.Message = "Your application description page.";
 
             return View();
         }

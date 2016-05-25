@@ -15,9 +15,10 @@ namespace MVC5.Controllers
         private FabricsEntities db = new FabricsEntities();
 
         // GET: Products
-        public ActionResult Index()
+        public ActionResult Index(int? Price = 7,string ProductName = "")
         {
-            return View(db.Product.ToList());
+            var product = db.Product.Where(p => p.ProductName.StartsWith(ProductName) && p.Price > Price);
+            return View(product.Take(10).ToList());
         }
 
         // GET: Products/Details/5
@@ -46,7 +47,7 @@ namespace MVC5.Controllers
         // 詳細資訊，請參閱 http://go.microsoft.com/fwlink/?LinkId=317598。
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "ProductId,ProductName,Price,Active,Stock")] Product product)
+        public ActionResult Create([Bind(Include = "ProductId,ProductName,Price,Stock")] Product product)
         {
             if (ModelState.IsValid)
             {
@@ -57,6 +58,7 @@ namespace MVC5.Controllers
 
             return View(product);
         }
+
 
         // GET: Products/Edit/5
         public ActionResult Edit(int? id)
@@ -78,7 +80,7 @@ namespace MVC5.Controllers
         // 詳細資訊，請參閱 http://go.microsoft.com/fwlink/?LinkId=317598。
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "ProductId,ProductName,Price,Active,Stock")] Product product)
+        /*public ActionResult Edit([Bind(Include = "ProductId,ProductName,Price,Active,Stock")] Product product)
         {
             if (ModelState.IsValid)
             {
@@ -87,6 +89,17 @@ namespace MVC5.Controllers
                 return RedirectToAction("Index");
             }
             return View(product);
+        }*/
+
+        public ActionResult Edit(int id,FormCollection nop)
+        {
+            var product = db.Product.Find(id);
+            if (TryUpdateModel<Product>(product, new string[] { "ProductName", "Price", "Stock" }))
+            {
+                db.SaveChanges();
+                return RedirectToAction("Index");
+            }
+            return View();
         }
 
         // GET: Products/Delete/5

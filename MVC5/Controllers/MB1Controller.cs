@@ -84,6 +84,10 @@ namespace MVC5.Controllers
         {
             return Content("Complex1:" + item1.UserName + "/" + item1.Password + "/" + item1.ConfirmPassword + "<br>"
                 + item2.UserName + "/" + item2.Password + "/" + item2.ConfirmPassword);
+            if (ModelState.IsValid)
+            {
+                
+            }
         }
 
         public ActionResult Complex2ex()
