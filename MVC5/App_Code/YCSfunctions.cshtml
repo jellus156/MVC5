@@ -1,0 +1,7 @@
+﻿@functions{
+    public static HtmlString GetDateTimeNow()
+    {
+        DateTime dt = DateTime.Now;
+        return new HtmlString(dt.ToString());
+    }
+}

@@ -1,0 +1,25 @@
+﻿
+@{
+    ViewBag.Title = "Example3";
+}
+
+<h2>Example3</h2>
+
+@* Email 輸出不受影響*@
+<a href="mailto:teacher@example.com">teacher@example.com</a>
+
+<p></p>
+
+@* Use Encode*@
+@{ 
+    ViewBag.Description = "<span style='font-weight: bold;'>描述文字</span>";
+}
+@ViewBag.Description
+
+<p></p>
+
+@* Unuse Encode*@
+@{
+    ViewBag.Description = "<span style='font-weight: bold;'>描述文字</span>";
+}
+@Html.Raw(ViewBag.Description)

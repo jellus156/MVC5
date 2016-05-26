@@ -1,0 +1,22 @@
+﻿@{ 
+    for (int i = 0; i < 5; i++)
+    {
+        @ViewBag.IntArray[i];
+    }
+}
+@{ 
+    for (int i = 0; i < 5; i++)
+    {
+        @(" " + ViewBag.IntArray[i]);
+        }
+}
+
+@{ 
+<ul>
+    for (int i = 0; i < 5; i++)
+    {
+        ViewBag.Description += "<li>" + ViewBag.IntArray[i] + " </li>";
+    }
+    @Html.Raw(ViewBag.Description)
+</ul>
+}

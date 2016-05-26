@@ -5,3 +5,27 @@
 <h3>@ViewBag.Message</h3>
 
 <p>Use this area to provide additional information.</p>
+
+<input id="btn1" type="button" value="Click" onclick="ClickMe(this)" />
+
+<input type="text" value="asd" onchange="ChangeMe(this)" />
+
+<script type="text/javascript">
+    function ClickMe(obj) {
+        $('#btn1').val("Press 1");
+        alert('OK!');
+        $(obj).val("Press 2");
+        alert('OK!');
+        $('#btn1').hide();
+        alert('OK!');
+        $('#btn1').show();
+        if (confirm("確定要刪除嗎？")) {
+            alert('OK!');
+        } else {
+            alert('Cancel!');
+        }
+    }
+    function ChangeMe(elm) {
+        alert('OK!');
+    }
+</script>
